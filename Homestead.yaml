@@ -1,0 +1,41 @@
+---
+ip: "192.168.10.10"
+memory: 2048
+cpus: 1
+provider: virtualbox
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    - map: ~/www-homestead
+      to: /home/vagrant/www
+      nfs: "true"
+    - map: ~/Downloads/Databases
+      to: /home/vagrant/databases
+      nfs: "true"
+
+sites:
+    - map: homeof.sumon
+      to: /home/vagrant/www/default
+    - map: skin.smartkompare.sumon
+      to: /home/vagrant/www/smartkompare-dash/public
+    - map: grewandco.sumon
+      to: /home/vagrant/www/grewandco
+    - map: smartkompare.sumon
+      to: /home/vagrant/www/smartkompare-web
+    - map: devcon.sumon
+      to: /home/vagrant/www/devcon
+    - map: rrf-php.sumon
+      to: /home/vagrant/www/rrf-php
+
+databases:
+    - homestead
+
+blackfire:
+    - id: b16fae36-d6da-4f6c-881f-186687d21c78
+      token: 8c2dbd7948f78d56ae1ce5a081ca20b51673ea94083c74e0ee1bccafe837dad9
+      client-id: ad2f0d36-3990-4508-9b5f-15d9c735e507
+      client-token: d6c871be6e77c03a79e1c1c9b0bf361174780d0a8702346d47ebeb36de5ca150

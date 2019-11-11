@@ -1,15 +1,28 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/sumonselim/.oh-my-zsh
+export ZSH="/Users/muhammadsumonmollaselim/.oh-my-zsh"
 
-# Set name of the theme to load.
 ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_DISABLE_COMPFIX=true
+
+# User configuration
+export TERM="xterm-256color"
+export SHELL="/bin/zsh"
+export EDITOR="nano"
+export LANG=en_US.UTF-8
+export DEFAULT_USER="SumonMSelim"
+export ARCHFLAGS="-arch x86_64"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+# Path configuration
+export PATH=/usr/local/sbin:$PATH
 
 # powerlevel9k customizations
 POWERLEVEL9K_MODE='awesome-patched'
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(load battery time)
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_first_and_last"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time battery)
 POWERLEVEL9K_SHOW_CHANGESET=true
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
 
@@ -23,61 +36,26 @@ COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="dd.mm.yyyy"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-plugins=(zsh-autosuggestions)
-
-# User configuration
-export LANG=en_US.UTF-8
-export DEFAULT_USER="$USER"
-export ARCHFLAGS="-arch x86_64"
-
-export PYENV_ROOT=/usr/local/var/pyenv
-export PATH="$PYENV_ROOT/bin:$PATH"
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+plugins=(zsh-autosuggestions osx brew composer common-aliases copyfile web-search zsh-syntax-highlighting)
 
 test -f $ZSH/oh-my-zsh.sh && source $ZSH/oh-my-zsh.sh
+test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integration.zsh
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nano'
-else
-  export EDITOR='subl -w'
-fi
+# Aliases
+alias zshrc="nano ~/.zshrc"
+alias artisan="php artisan"
+alias idehelper='artisan clear-compiled && artisan ide-helper:generate && artisan ide-helper:meta'
+alias idemodel='artisan clear-compiled && artisan ide-helper:models'
 
-# pyenv shims & autocompletion
-if which pyenv > /dev/null; then
-  eval "$(pyenv init -)";
-fi
+# Git
+alias gcd="git checkout develop"
+alias gnb="git checkout -b"
+alias pullall='find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull \;'
 
-# pyenv virtualenv shims & autocompletion
-if which pyenv-virtualenv-init > /dev/null; then
-  eval "$(pyenv virtualenv-init -)";
-fi
+# Docker
+alias dockup='docker-compose up -d'
+alias dockdown='docker-compose down'
 
-# aliases
-alias zshconfig="subl ~/.zshrc"
-alias hsconfig="subl ~/.homestead/Homestead.yaml"
-
-# show/hide hidden files
-alias showFiles="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app"
-alias hideFiles="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app"
-
-# local servers login
-alias homestead="cd '/Users/sumonselim/Homestead'; vagrant ssh"
-alias ubuntu="cd '/Users/sumonselim/Ubuntu'; vagrant ssh"
-
-# remote servers login
-alias skin="ssh root@63.142.251.173"
-alias smart="ssh root@107.155.116.117"
-alias oikhali="ssh -i ~/Keys/oikhali.pem sabbir@oikhali.com -p 22000"
-alias kodeeo="ssh root@128.199.250.147"
-
-# pyenv aliases
-alias lspyenv="pyenv virtualenvs" // list existing virtualenvs
-alias newpyenv="pyenv virtualenv " // create a virtualenv with pyenv
-
-# Django
-alias django-admin=django-admin.py
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 archey -c
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
